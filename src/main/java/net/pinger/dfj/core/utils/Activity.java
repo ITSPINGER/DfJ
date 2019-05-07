@@ -28,8 +28,6 @@ public class Activity {
 		this.key = key;
 	}
 
-
-
 	public static Activity of(Game game, String name) {
 		return new Activity(game, name);
 	}
@@ -52,6 +50,11 @@ public class Activity {
 		return new Activity(name, key);
 	}
 
+	public Game getGame() {
+		return game;
+	}
 
-
+	public String getGameName() {
+		return name;
+	}
 }
