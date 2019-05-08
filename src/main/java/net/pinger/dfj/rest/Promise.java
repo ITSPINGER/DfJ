@@ -37,7 +37,7 @@ public class Promise<T> {
 	@CheckReturnValue
 	public Promise<T> thenAsync(Consumer<? super T> consumer) {
 		// If already executed, just create another instance forehead.
-		if (executed) return this;
+		if (executed || called) return this;
 
 		asyncTasks.add(consumer);
 		return this;
@@ -45,7 +45,7 @@ public class Promise<T> {
 
 	@CheckReturnValue
 	public Promise<T> thenIf(Predicate<? super T> predicate, Consumer<? super T> consumer) {
-		if (executed) return this;
+		if (executed || called) return this;
 
 		boolean can = predicate.test((T) object);
 		if (can) syncTasks.add(consumer);
@@ -55,7 +55,7 @@ public class Promise<T> {
 
 	@CheckReturnValue
 	public Promise<T> thenIfAsync(Predicate<? super T> predicate, Consumer<? super T> consumer) {
-		if (executed) return this;
+		if (executed || called) return this;
 
 		boolean can = predicate.test((T) object);
 		if (can) asyncTasks.add(consumer);
@@ -63,8 +63,8 @@ public class Promise<T> {
 		return this;
 	}
 
-	private void setExecuted(boolean executed) {
-		this.executed = executed;
+	private void setExecuted() {
+		this.executed = true;
 	}
 
 	public T get() {
@@ -74,27 +74,33 @@ public class Promise<T> {
 	public void run() {
 		if (executed) return;
 
+		this.called = true;
+
 		for (Consumer<? super T> consumer : syncTasks) {
 			consumer.accept((T) object);
 		}
 
-		setExecuted(true);
+		setExecuted();
 	}
 
 	public void runAsync() {
 		if (executed) return;
 
+		this.called = true;
+
 		for (Consumer<? super T> consumer : asyncTasks) {
 			new Thread(() -> {
 				consumer.accept((T) object);
 			}).start();
 		}
 
-		setExecuted(true);
+		setExecuted();
 	}
 
 	public T complete() {
 		if (executed) return (T) object;
+
+		this.called = true;
 
 		for (Consumer<? super T> consumer : syncTasks) {
 			consumer.accept((T) object);
@@ -106,7 +112,7 @@ public class Promise<T> {
 			}).start();
 		}
 
-		setExecuted(true);
+		setExecuted();
 		return (T) object;
 	}
 

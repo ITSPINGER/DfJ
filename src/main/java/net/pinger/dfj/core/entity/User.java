@@ -1,5 +1,6 @@
 package net.pinger.dfj.core.entity;
 
+import net.pinger.dfj.core.Client;
 import net.pinger.dfj.core.utils.Snowflake;
 import net.pinger.dfj.rest.Promise;
 
@@ -13,6 +14,8 @@ public interface User {
 
 	Snowflake getId();
 
+	String getName();
+
 	default long getIdLong() {
 		return getId().getIdLong();
 	}
@@ -24,5 +27,7 @@ public interface User {
 	default Instant getCreationTime() {
 		return getId().getCreationTime();
 	}
+
+	Client getClient();
 
 }

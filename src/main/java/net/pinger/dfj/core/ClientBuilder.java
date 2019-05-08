@@ -8,16 +8,19 @@ public class ClientBuilder {
 	private String token;
 	private Activity activity;
 
-	public void setToken(String token) {
+	public ClientBuilder setToken(String token) {
 		this.token = token;
+		return this;
 	}
 
-	public void setActivity(Activity activity) {
+	public ClientBuilder setActivity(Activity activity) {
 		this.activity = activity;
+		return this;
 	}
 
 	public Client build() {
 		Client client = new ClientImpl(activity, token);
+		((ClientImpl) client).login();
 		return client;
 	}
 

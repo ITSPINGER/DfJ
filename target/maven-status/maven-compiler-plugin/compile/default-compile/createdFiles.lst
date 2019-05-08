@@ -1,4 +1,6 @@
+net\pinger\dfj\core\entity\Guild.class
 net\pinger\dfj\core\presence\OnlineStatus.class
+net\pinger\dfj\core\entity\Member.class
 net\pinger\dfj\core\entity\Channel.class
 net\pinger\dfj\rest\Promise.class
 net\pinger\dfj\core\entity\impl\ClientImpl.class
@@ -6,11 +8,15 @@ net\pinger\dfj\core\ClientBuilder.class
 net\pinger\dfj\core\utils\DiscordUtil.class
 net\pinger\dfj\core\entity\impl\TextChannelImpl.class
 net\pinger\dfj\core\Client.class
+net\pinger\dfj\core\entity\impl\MemberImpl.class
 net\pinger\dfj\core\utils\Snowflake.class
 net\pinger\dfj\rest\Request.class
+net\pinger\dfj\core\entity\User.class
 net\pinger\dfj\core\entity\TextChannel.class
-net\pinger\dfj\core\utils\Mentionable.class
+net\pinger\dfj\core\entity\Role.class
 net\pinger\dfj\core\presence\Game.class
 net\pinger\dfj\core\entity\ChannelType.class
 net\pinger\dfj\core\utils\Activity.class
+net\pinger\dfj\core\utils\iface\Mentionable.class
 net\pinger\dfj\rest\Executable.class
+net\pinger\dfj\core\entity\impl\UserImpl.class

@@ -1,10 +1,15 @@
 package net.pinger.dfj.core.entity;
 
+import net.pinger.dfj.core.utils.Snowflake;
 import net.pinger.dfj.rest.Promise;
 
 import java.util.List;
 
 public interface Guild {
+
+	Snowflake getId();
+
+	List<Promise<User>> getUsers();
 
 	Promise<User> getUserById(long id);
 
@@ -12,11 +17,15 @@ public interface Guild {
 		return getUserById(Long.parseUnsignedLong(id));
 	}
 
+	List<Promise<Member>> getMembers();
+
 	Promise<Member> getMemberById(long id);
 
 	default Promise<Member> getMemberById(String id) {
 		return getMemberById(Long.parseUnsignedLong(id));
 	}
+
+	List<Promise<TextChannel>> getTextChannels();
 
 	List<Promise<TextChannel>> getChannelsByName(String name, boolean ignore);
 
